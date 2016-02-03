@@ -5,7 +5,7 @@ describe ("smoke test ILX", function(){
     var register_page = require('../page/register_page.js');
     var checkout_page = require('../page/checkout_page.js');
 
-    it ("should be able to register and purchase a package with fake Visa", function() {
+    xit ("should be able to register and purchase a package with fake Visa", function() {
     browser.get('https://my.staging.insurancelicenseexpress.com/addtocart/' + browser.params.arizonaDiamond);
         register_page.enterEmail();
         register_page.enterPassword("tester123");
@@ -62,7 +62,7 @@ describe ("smoke test ILX", function(){
         dashboard_page.clickLogOut();
         });
     
-    it ("should be able to register and purchase a package with fake MasterCard", function() {
+    xit ("should be able to register and purchase a package with fake MasterCard", function() {
     browser.get('https://my.staging.insurancelicenseexpress.com/addtocart/' + browser.params.newyorkGold);
         register_page.enterEmail();
         register_page.enterPassword("tester123");
@@ -137,7 +137,7 @@ describe ("smoke test ILX", function(){
         login_page.enterPassword('tester123');
         login_page.clickLogIn();
         element.all(by.css("h2")).then(function(items) {
-    expect(items[0].getText()).toBe('My Home Page');
+    expect(items[0].getText()).toBe('MY HOME PAGE');
         });
         dashboard_page.clickMyAccount();
         dashboard_page.clickAccountInformation();
@@ -185,7 +185,7 @@ describe ("smoke test ILX", function(){
             });
         });
     
-    xit ("should be able to view invoice on invoices page", function(){
+    it ("should be able to view invoice on invoices page", function(){
         browser.get("https://my.staging.insurancelicenseexpress.com/");
         register_page.goToLogin();
         login_page.enterLogin('testmckqa1+1203ca@gmail.com');
@@ -198,7 +198,11 @@ describe ("smoke test ILX", function(){
         browser.ignoreSynchronization = true;
         browser.getAllWindowHandles().then(function(handles){
             browser.switchTo().window(handles[1]).then(function(){
-    expect(browser.getCurrentUrl()).toContain("invoices");
+    var pre = element(by.css('pre'));
+        expect(pre.isPresent()).toBeFalsy();
+        /*pre.getText().then(function(text) {
+        expect(text).not.toContain('error');
+        });*/
                 });
             });
         browser.driver.close();
